@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authMiddleware } from "../middleware/authMiddleware.js";
-import { createCategory, deleteCategory, getCategory, updateCategory } from "../controllers/categoryControllers.js";
-import { createSubCategory, deleteSubCategory, getSubCategory, updateSubCategory } from "../controllers/subcategoryControllers.js";
+import { allCategory, createCategory, deleteCategory, getCategory, updateCategory } from "../controllers/categoryControllers.js";
+import { allSubCategory, createSubCategory, deleteSubCategory, getSubCategory, updateSubCategory } from "../controllers/subcategoryControllers.js";
 import { roleBasedAuth } from "../middleware/roleBasedAccessMiddleware.js";
 import activityLogMiddleware from "../middleware/logActivityMiddleware.js";
 
@@ -17,6 +17,7 @@ activityLogMiddleware({
 adminRouter.get("/getCategory", authMiddleware, roleBasedAuth(['admin']), getCategory);
 adminRouter.put("/updateCategory/:id", authMiddleware, roleBasedAuth(['admin']), updateCategory);
 adminRouter.delete("/deleteCategory/:id", authMiddleware, roleBasedAuth(['admin']), deleteCategory)
+adminRouter.get("/getAllCategory", authMiddleware, roleBasedAuth(['admin']), allCategory)
 
 //SubCategory routes for admin
 adminRouter.post("/createSubCategory/:id", authMiddleware, roleBasedAuth(['admin']), 
@@ -28,5 +29,7 @@ activityLogMiddleware({
 adminRouter.get("/getSubCategory", authMiddleware, roleBasedAuth(['admin']), getSubCategory);
 adminRouter.put("/updateSubCategory/:id", authMiddleware, roleBasedAuth(['admin']), updateSubCategory);
 adminRouter.delete("/deleteSubCategory/:id", authMiddleware, roleBasedAuth(['admin']), deleteSubCategory);
+adminRouter.get("/getAllSubCategory", authMiddleware, roleBasedAuth(['admin']), allSubCategory)
+
 
 export default adminRouter

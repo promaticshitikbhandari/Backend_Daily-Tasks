@@ -39,6 +39,25 @@ const getSubCategory = async (req, res) => {
   }
 }
 
+const allSubCategory = async (req, res) => {
+    try {
+        const user = req.user;
+        const allSubCategory = await SubCategory.find();
+        return res.status(202).json({
+            success: true,
+            message: "All Sub Categories Fetched",
+            data: allSubCategory
+        })
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Server error while fetching all categories on admin side"
+        })
+    }
+}
+
 const updateSubCategory = async (req, res) => {
   try {
     const { id } = req.params
@@ -77,5 +96,6 @@ export {
   createSubCategory,
   getSubCategory,
   updateSubCategory,
-  deleteSubCategory
+  deleteSubCategory,
+  allSubCategory
 }
