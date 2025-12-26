@@ -60,7 +60,7 @@ router.get('/products/getAllProduct', getAllProducts);
 router.put('/products/updateProduct/:id', authMiddleware, validate(getUserParamSchema, "params"), updateProduct);
 router.delete('/products/deleteProduct/:id', authMiddleware, validate(getUserParamSchema, "params"), deleteProduct);
 
-router.get('/uploads', authMiddleware, activityLogMiddleware({
+router.get('/uploads', authMiddleware, upload.array('file', 1), activityLogMiddleware({
     action: "File Uploaded",
     category: "File",
     description: "New file uploaded"
@@ -71,6 +71,16 @@ router.get('/uploads', authMiddleware, activityLogMiddleware({
     }
 ]), uploadFile)
 
-
+// upload.single('file')
+// upload.fields([
+//     {
+//         name: 'avatar',
+//         maxCount: 1
+//     },
+//     {
+//         name: 'file',
+//         maxCount: 3
+//     }
+// ])
 
 export default router
